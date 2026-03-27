@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BenchGecko - The Data Layer of the AI Economy</title>
+    <meta name="description" content="Benchmark scores, pricing, and rankings for every AI model, agent, and tool in one place. Track 346+ models, 165+ agents, 40+ benchmarks, and 55+ providers.">
+    <meta name="keywords" content="AI benchmarks, LLM comparison, AI model rankings, AI agent scores, MCP servers, AI pricing, model comparison">
+    <link rel="canonical" href="https://benchgecko.ai">
+    <meta property="og:title" content="BenchGecko - Every model. Every agent. Everything.">
+    <meta property="og:description" content="Benchmark scores, pricing, and rankings for every AI model, agent, and tool in one place.">
+    <meta property="og:url" content="https://benchgecko.ai">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BenchGecko - The Data Layer of the AI Economy">
+    <meta name="twitter:description" content="Benchmark scores, pricing, and rankings for every AI model, agent, and tool in one place.">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #16161f;
+            --bg-card-hover: #1c1c28;
+            --border: #2a2a3a;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9898a8;
+            --text-muted: #6a6a7a;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --green: #22c55e;
+            --amber: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #a5b4fc;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-brand span {
+            color: var(--accent-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-light);
+            color: white !important;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-light), #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 0.875rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            max-width: 900px;
+            margin: -2rem auto 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat {
+            background: var(--bg-secondary);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Section */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Coverage Grid */
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .coverage-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: all 0.25s;
+        }
+
+        .coverage-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .coverage-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .coverage-card h3 .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .icon-models { background: rgba(99, 102, 241, 0.15); color: var(--accent-light); }
+        .icon-agents { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+        .icon-mcp { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .icon-bench { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+        .icon-pricing { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .icon-compare { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+
+        .coverage-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .coverage-card .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+
+        .coverage-card .card-link:hover {
+            gap: 0.6rem;
+        }
+
+        /* Data Sources */
+        .sources-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 4rem;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .source-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .source-bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .source-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .source-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* API Section */
+        .api-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .api-info h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .api-info p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .api-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .api-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .api-features li::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+        }
+
+        .api-code {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .api-code-header {
+            background: var(--bg-secondary);
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .api-code-header .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .api-code-header .dot-red { background: #ef4444; }
+        .api-code-header .dot-yellow { background: #f59e0b; }
+        .api-code-header .dot-green { background: #22c55e; }
+
+        .api-code pre {
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .api-code code {
+            font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+            color: var(--text-secondary);
+        }
+
+        .api-code .kw { color: #c084fc; }
+        .api-code .str { color: #86efac; }
+        .api-code .url { color: #93c5fd; }
+        .api-code .comment { color: var(--text-muted); }
+
+        /* Open Source */
+        .oss-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .oss-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            transition: all 0.25s;
+            display: block;
+        }
+
+        .oss-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            color: var(--text-primary);
+        }
+
+        .oss-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .oss-card-header svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-muted);
+        }
+
+        .oss-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .oss-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .oss-card .tag {
+            display: inline-block;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .use-case {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+        }
+
+        .use-case h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .use-case p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand h3 span {
+            color: var(--accent-light);
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .coverage-grid { grid-template-columns: 1fr; }
+            .api-section { grid-template-columns: 1fr; }
+            .oss-grid { grid-template-columns: 1fr; }
+            .use-cases { grid-template-columns: 1fr; }
+            .sources-grid { grid-template-columns: 1fr; }
+            .sources-section { padding: 2.5rem; }
+            .footer-links { gap: 2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero { padding: 8rem 1.5rem 4rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1.05rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .footer-inner { flex-direction: column; }
+            .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="https://benchgecko.ai" class="nav-brand">Bench<span>Gecko</span></a>
+            <ul class="nav-links">
+                <li><a href="https://benchgecko.ai/models">Models</a></li>
+                <li><a href="https://benchgecko.ai/agents">Agents</a></li>
+                <li><a href="https://benchgecko.ai/mcp">MCP Servers</a></li>
+                <li><a href="https://benchgecko.ai/pricing">Pricing</a></li>
+                <li><a href="https://benchgecko.ai/api">API</a></li>
+            </ul>
+            <a href="https://benchgecko.ai" class="nav-cta">Open BenchGecko</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-badge">The Data Layer of the AI Economy</div>
+        <h1>Every model. Every agent.<br><span class="gradient">Everything.</span></h1>
+        <p>Benchmark scores, pricing, and rankings for every AI model, agent, and tool in one place. One search to find the right model for any task.</p>
+        <div class="hero-actions">
+            <a href="https://benchgecko.ai" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                Explore Models
+            </a>
+            <a href="https://benchgecko.ai/compare" class="btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>
+                Compare Models
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-value">346+</div>
+            <div class="stat-label">AI Models Tracked</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">165+</div>
+            <div class="stat-label">AI Agents Scored</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">40+</div>
+            <div class="stat-label">Benchmarks Indexed</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">55+</div>
+            <div class="stat-label">Providers Covered</div>
+        </div>
+    </div>
+
+    <!-- What We Track -->
+    <section>
+        <div class="section-header">
+            <h2>What BenchGecko Tracks</h2>
+            <p>A unified platform for AI model intelligence. From frontier LLMs to autonomous agents to the tools that connect them.</p>
+        </div>
+
+        <div class="coverage-grid">
+            <a href="https://benchgecko.ai/models" class="coverage-card" style="text-decoration:none;color:inherit;">
+                <h3>
+                    <span class="icon icon-models">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </span>
+                    AI Models
+                </h3>
+                <p>Every major LLM and foundation model: GPT-4o, Claude, Gemini, Llama, Mistral, DeepSeek, Command R, and hundreds more. Scores across reasoning, coding, math, and multilingual benchmarks.</p>
+                <span class="card-link">Browse models &#8594;</span>
+            </a>
+
+            <a href="https://benchgecko.ai/agents" class="coverage-card" style="text-decoration:none;color:inherit;">
+                <h3>
+                    <span class="icon icon-agents">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                    </span>
+                    AI Agents
+                </h3>
+                <p>Autonomous AI systems that perform real tasks: coding agents, research agents, data analysis agents, and more. Scored on task completion, accuracy, and reliability across standardized benchmarks.</p>
+                <span class="card-link">Browse agents &#8594;</span>
+            </a>
+
+            <a href="https://benchgecko.ai/mcp" class="coverage-card" style="text-decoration:none;color:inherit;">
+                <h3>
+                    <span class="icon icon-mcp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+                    </span>
+                    MCP Servers
+                </h3>
+                <p>Model Context Protocol servers and skills that extend what AI can do. File systems, databases, APIs, browser automation, and developer tools cataloged and rated.</p>
+                <span class="card-link">Browse MCP servers &#8594;</span>
+            </a>
+
+            <a href="https://benchgecko.ai/models" class="coverage-card" style="text-decoration:none;color:inherit;">
+                <h3>
+                    <span class="icon icon-bench">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                    </span>
+                    Benchmark Scores
+                </h3>
+                <p>40+ benchmarks normalized and compared: MMLU, HumanEval, GSM8K, GPQA, MATH, ARC, HellaSwag, SWE-bench, and more. Raw scores with methodology notes for each evaluation.</p>
+                <span class="card-link">View benchmarks &#8594;</span>
+            </a>
+
+            <a href="https://benchgecko.ai/pricing" class="coverage-card" style="text-decoration:none;color:inherit;">
+                <h3>
+                    <span class="icon icon-pricing">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </span>
+                    Pricing Data
+                </h3>
+                <p>Input and output token pricing for every commercial API. Cost-per-million-tokens, rate limits, context windows, and price-to-performance ratios updated continuously.</p>
+                <span class="card-link">Compare pricing &#8594;</span>
+            </a>
+
+            <a href="https://benchgecko.ai/compare" class="coverage-card" style="text-decoration:none;color:inherit;">
+                <h3>
+                    <span class="icon icon-compare">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                    </span>
+                    Side-by-Side Comparison
+                </h3>
+                <p>Compare any two models head-to-head across every benchmark, pricing tier, and capability. Scatter plots, radar charts, and detailed breakdowns to find the best fit for your use case.</p>
+                <span class="card-link">Compare models &#8594;</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Data Sources -->
+    <section>
+        <div class="sources-section">
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <h2>Where the Data Comes From</h2>
+                <p>BenchGecko aggregates data from authoritative sources and standardizes it into a single queryable dataset.</p>
+            </div>
+
+            <div class="sources-grid">
+                <div class="source-item">
+                    <div class="source-bullet"></div>
+                    <div>
+                        <h4>Official Provider APIs</h4>
+                        <p>Pricing, rate limits, and model metadata pulled directly from OpenAI, Anthropic, Google, Meta, Mistral, and other provider documentation.</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-bullet"></div>
+                    <div>
+                        <h4>Published Benchmark Results</h4>
+                        <p>Scores from peer-reviewed papers, official model cards, and standardized evaluation suites. Each score links back to its source.</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-bullet"></div>
+                    <div>
+                        <h4>Open Evaluation Harnesses</h4>
+                        <p>Results from LM Evaluation Harness, HELM, Open LLM Leaderboard, and other reproducible evaluation frameworks.</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-bullet"></div>
+                    <div>
+                        <h4>Community Leaderboards</h4>
+                        <p>Data from Chatbot Arena, LiveBench, and other community-driven evaluations that capture real-world model performance.</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-bullet"></div>
+                    <div>
+                        <h4>Agent Evaluation Suites</h4>
+                        <p>SWE-bench, WebArena, GAIA, and other agent-specific benchmarks that test autonomous task completion.</p>
+                    </div>
+                </div>
+                <div class="source-item">
+                    <div class="source-bullet"></div>
+                    <div>
+                        <h4>MCP Ecosystem</h4>
+                        <p>Model Context Protocol server registries, GitHub repositories, and community catalogs for tool and skill tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API -->
+    <section>
+        <div class="api-section">
+            <div class="api-info">
+                <h2>Build with the BenchGecko API</h2>
+                <p>Programmatic access to the full dataset. Query models, scores, pricing, and agents with a simple REST API. Use it to power your own AI tooling, dashboards, and decision engines.</p>
+                <ul class="api-features">
+                    <li>Full model metadata: parameters, context window, release date, provider</li>
+                    <li>Benchmark scores with source attribution</li>
+                    <li>Real-time pricing across all commercial providers</li>
+                    <li>Agent capabilities and evaluation scores</li>
+                    <li>Comparison endpoints for side-by-side analysis</li>
+                    <li>JSON responses, no authentication required for public data</li>
+                </ul>
+                <a href="https://benchgecko.ai/api" class="btn-primary">API Documentation &#8594;</a>
+            </div>
+            <div class="api-code">
+                <div class="api-code-header">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <pre><code><span class="comment"># Get model details and scores</span>
+<span class="kw">curl</span> <span class="url">https://benchgecko.ai/api/v1/models/gpt-4o</span>
+
+<span class="comment"># Compare two models</span>
+<span class="kw">curl</span> <span class="url">https://benchgecko.ai/api/v1/compare?a=claude-4&amp;b=gpt-4o</span>
+
+<span class="comment"># List all models with pricing</span>
+<span class="kw">curl</span> <span class="url">https://benchgecko.ai/api/v1/models?include=pricing</span>
+
+<span class="comment"># Search agents by capability</span>
+<span class="kw">curl</span> <span class="url">https://benchgecko.ai/api/v1/agents?q=coding</span>
+
+<span class="comment"># Get benchmark leaderboard</span>
+<span class="kw">curl</span> <span class="url">https://benchgecko.ai/api/v1/benchmarks/mmlu/scores</span></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section>
+        <div class="section-header">
+            <h2>Who Uses BenchGecko</h2>
+            <p>Teams and individuals making data-driven decisions about which AI to use, build on, or invest in.</p>
+        </div>
+
+        <div class="use-cases">
+            <div class="use-case">
+                <h3>Engineering Teams</h3>
+                <p>Find the best model for your specific task. Filter by benchmark category (coding, reasoning, math, multilingual), compare pricing, and evaluate the tradeoff between performance and cost before committing to an API provider.</p>
+            </div>
+            <div class="use-case">
+                <h3>AI Researchers</h3>
+                <p>Track how model capabilities evolve over time. Access normalized scores across evaluation suites, identify benchmark saturation, and discover which areas still have room for improvement.</p>
+            </div>
+            <div class="use-case">
+                <h3>Product Managers</h3>
+                <p>Make informed build-vs-buy decisions. Understand what agents can do autonomously, compare MCP server ecosystems, and evaluate whether a new model release changes your product roadmap.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Source -->
+    <section>
+        <div class="section-header">
+            <h2>Open Source from BenchGecko</h2>
+            <p>Community resources maintained alongside the platform.</p>
+        </div>
+
+        <div class="oss-grid">
+            <a href="https://github.com/BenchGecko/awesome-llm-benchmarks" class="oss-card">
+                <div class="oss-card-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    <h3>awesome-llm-benchmarks</h3>
+                </div>
+                <p>A curated list of LLM benchmarks, evaluation frameworks, and leaderboards. Covers reasoning, coding, math, safety, multilingual, and domain-specific evaluations.</p>
+                <span class="tag">Awesome List</span>
+                <span class="tag">LLM</span>
+                <span class="tag">Benchmarks</span>
+            </a>
+
+            <a href="https://github.com/BenchGecko/llm-pricing" class="oss-card">
+                <div class="oss-card-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    <h3>llm-pricing</h3>
+                </div>
+                <p>Structured dataset of LLM API pricing. Input/output costs per million tokens, context windows, rate limits, and free tier details for every commercial model API.</p>
+                <span class="tag">Dataset</span>
+                <span class="tag">Pricing</span>
+                <span class="tag">JSON</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Bench<span>Gecko</span></h3>
+                <p>The data layer of the AI economy.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="https://benchgecko.ai/models">Models</a></li>
+                        <li><a href="https://benchgecko.ai/agents">Agents</a></li>
+                        <li><a href="https://benchgecko.ai/mcp">MCP Servers</a></li>
+                        <li><a href="https://benchgecko.ai/pricing">Pricing</a></li>
+                        <li><a href="https://benchgecko.ai/compare">Compare</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul>
+                        <li><a href="https://benchgecko.ai/api">API Docs</a></li>
+                        <li><a href="https://github.com/BenchGecko/awesome-llm-benchmarks">awesome-llm-benchmarks</a></li>
+                        <li><a href="https://github.com/BenchGecko/llm-pricing">llm-pricing</a></li>
+                        <li><a href="https://github.com/BenchGecko">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://benchgecko.ai">Homepage</a></li>
+                        <li><a href="https://benchgecko.ai/api">API Reference</a></li>
+                        <li><a href="https://github.com/BenchGecko/benchgecko.github.io">Source</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>BenchGecko. All rights reserved.</span>
+            <span>Built for the AI community.</span>
+        </div>
+    </footer>
+
+</body>
+</html>
