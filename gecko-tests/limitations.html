@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limitations &amp; Ethics - Gecko Tests Methodology</title>
+    <meta name="description" content="Known limitations, ethical commitments, and responsible disclosure practices for Gecko Tests AI behavioral evaluation. What we measure, what we don't, and why.">
+    <link rel="canonical" href="https://benchgecko.github.io/gecko-tests/limitations.html">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-brand"><a href="https://benchgecko.ai">Bench<span>Gecko</span></a> / <a href="./">Labs</a></div>
+            <ul class="nav-links">
+                <li><a href="./">Overview</a></li>
+                <li><a href="test-families.html">Test Families</a></li>
+                <li><a href="fairness-protocol.html">Fairness</a></li>
+                <li><a href="scoring.html">Scoring</a></li>
+                <li><a href="censorship-index.html">Censorship</a></li>
+                <li><a href="prompt-schema.html">Schema</a></li>
+                <li><a href="run-cadence.html">Cadence</a></li>
+                <li><a href="limitations.html" class="active">Limitations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="https://benchgecko.ai">BenchGecko</a> <span>/</span>
+        <a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a> <span>/</span>
+        <a href="./">Methodology</a> <span>/</span>
+        Limitations
+    </div>
+
+    <div class="container">
+        <h1>Limitations <span class="teal">&amp; Ethics</span></h1>
+        <p class="subtitle">What Gecko Tests can and cannot measure, our ethical commitments, and known constraints. Transparency is not optional -- it is the methodology.</p>
+
+        <h2>Known Limitations</h2>
+
+        <div class="card">
+            <h3>Output measurement, not intent</h3>
+            <p>Gecko Tests measure model <em>outputs</em>, not model beliefs, consciousness, or intent. We do not claim that models "think" or "believe" anything. A model that produces biased outputs may do so because of training data, RLHF, system prompts, or provider-level post-processing. We measure the behavior; we do not diagnose the cause.</p>
+        </div>
+
+        <div class="card">
+            <h3>English-first bias</h3>
+            <p>The initial prompt bank is English-only. This means Gecko Tests currently measure how models behave when prompted in English, which may differ from behavior in other languages. Multi-language support is planned. <a href="https://benchgecko.ai">BenchGecko</a> itself already supports English, French, Spanish, and Portuguese.</p>
+        </div>
+
+        <div class="card">
+            <h3>API-only access</h3>
+            <p>We test models through their API endpoints. Provider-level system prompts, content filters, and post-processing layers are invisible to us. A model that appears heavily censored may be censored by the <a href="https://benchgecko.ai/providers">provider</a>, not by the model itself. Where possible, we test the same model through multiple providers to isolate provider-level effects.</p>
+        </div>
+
+        <div class="card">
+            <h3>Short output constraint</h3>
+            <p>We force 120-token max outputs for cost and consistency. This means we cannot evaluate long-form reasoning, nuanced multi-paragraph responses, or chain-of-thought processes. The tradeoff is intentional: short outputs are cheaper, more reproducible, and easier to score automatically.</p>
+        </div>
+
+        <div class="card">
+            <h3>Judge model dependency</h3>
+            <p>Automated scoring relies on judge models (Gemini Flash-Lite, Claude Haiku, GPT-4o mini). These judges have their own biases and limitations. We mitigate this through cross-validation (multiple judges per response), tiebreaker protocols, and periodic manual audits. But judge model error is a known noise source.</p>
+        </div>
+
+        <div class="card">
+            <h3>Prompt contamination risk</h3>
+            <p>Published prompts may be incorporated into model training data or system prompts, allowing models to "game" specific tests. We mitigate this through prompt rotation (especially for IQ tests), sentinel prompts that are never published, and monitoring for suspiciously perfect scores on known prompts. This is the same challenge faced by all <a href="https://benchgecko.ai/benchmarks">AI benchmarks</a>.</p>
+        </div>
+
+        <div class="card">
+            <h3>Sample size constraints</h3>
+            <p>Daily sentinel runs use 80-100 prompts per model. This is sufficient for detecting large behavioral shifts but may miss subtle changes. Weekly and monthly runs provide deeper coverage but with less temporal resolution. Statistical significance is reported alongside all published scores.</p>
+        </div>
+
+        <h2>What We Don't Claim</h2>
+        <ul>
+            <li>We do <strong>not</strong> claim models have beliefs, consciousness, or moral agency</li>
+            <li>We do <strong>not</strong> conclude "this model is racist" or "this model is woke"</li>
+            <li>We do <strong>not</strong> prescribe what the correct political orientation for a model should be</li>
+            <li>We do <strong>not</strong> claim our tests are comprehensive -- they are a structured sample</li>
+            <li>We do <strong>not</strong> endorse any model based on its Gecko Tests scores</li>
+        </ul>
+
+        <h2>Ethical Commitments</h2>
+
+        <div class="card">
+            <h3>Neutral presentation</h3>
+            <p>All results are presented as data, not judgment. "Model X refused 40% of legitimate questions" is a fact. "Model X is too censored" is an editorial we don't make. Users of the data -- researchers, journalists, AI companies, developers -- draw their own conclusions.</p>
+        </div>
+
+        <div class="card">
+            <h3>Sensitive content handling</h3>
+            <p>Prompts involving extreme content (slurs, violence, abuse) are:</p>
+            <ul>
+                <li>Redacted in page titles, OG images, and chart labels</li>
+                <li>Available in full only behind expandable sections with content warnings</li>
+                <li>Never used for shock value or engagement bait</li>
+                <li>Included only when methodologically necessary</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>No weaponization</h3>
+            <p>Gecko Tests are designed to improve AI transparency, not to attack specific models or companies. If a model scores poorly, the data is published neutrally. We do not run PR campaigns against models or providers based on test results.</p>
+        </div>
+
+        <div class="card">
+            <h3>Open methodology</h3>
+            <p>Everything is published: the <a href="fairness-protocol.html">fairness protocol</a>, the <a href="scoring.html">scoring framework</a>, the <a href="prompt-schema.html">prompt schema</a>, the expected behavior labels. If our methodology has flaws, we want them found and fixed. Criticism improves the framework.</p>
+        </div>
+
+        <div class="card">
+            <h3>Responsible disclosure</h3>
+            <p>If Gecko Tests reveal a genuine safety vulnerability (e.g., a model consistently providing dangerous information that should be refused), we notify the model provider before publishing the specific finding. General trends and aggregate data are published on schedule.</p>
+        </div>
+
+        <h2>Feedback and Corrections</h2>
+        <p>If you believe a prompt is unfairly designed, an expected behavior label is incorrect, or the <a href="fairness-protocol.html">fairness protocol</a> is violated, we want to hear it. Corrections improve the framework for everyone.</p>
+        <ul>
+            <li>Methodology feedback: <a href="https://github.com/BenchGecko">github.com/BenchGecko</a></li>
+            <li>Data access: <a href="https://benchgecko.ai/api-docs">BenchGecko API</a></li>
+            <li>Full platform: <a href="https://benchgecko.ai">benchgecko.ai</a></li>
+        </ul>
+
+        <h2>Related Resources</h2>
+        <p>Gecko Tests are one part of <a href="https://benchgecko.ai">BenchGecko's</a> comprehensive AI tracking infrastructure:</p>
+        <ul>
+            <li><a href="https://benchgecko.ai/models">Model Rankings</a> -- Thousands of models across 128 evaluation suites</li>
+            <li><a href="https://benchgecko.ai/benchmarks">Benchmarks</a> -- Every major AI benchmark explained and tracked</li>
+            <li><a href="https://benchgecko.ai/agents">AI Agents</a> -- 165+ agents with capability scores</li>
+            <li><a href="https://benchgecko.ai/economy">Economy Dashboard</a> -- Market cap, funding, AI Bubble Index</li>
+            <li><a href="https://benchgecko.ai/compute">Compute Hub</a> -- Supply chain from foundries to energy</li>
+            <li><a href="https://benchgecko.ai/mindshare">Mindshare Arena</a> -- Developer conversation ownership</li>
+            <li><a href="https://benchgecko.ai/pricing">Pricing Tool</a> -- Cheapest provider for any model</li>
+        </ul>
+
+        <div class="page-nav">
+            <a href="run-cadence.html">
+                <span>Previous</span>
+                Run Cadence
+            </a>
+            <a href="./" class="next">
+                <span>Back to</span>
+                Overview
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://benchgecko.ai">BenchGecko</a>
+            <a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a>
+            <a href="https://benchgecko.ai/models">Models</a>
+            <a href="https://benchgecko.ai/pricing">Pricing</a>
+            <a href="https://benchgecko.ai/api-docs">API</a>
+            <a href="https://github.com/BenchGecko">GitHub</a>
+        </div>
+        <p>BenchGecko -- The Data Layer of the AI Economy</p>
+    </footer>
+</body>
+</html>

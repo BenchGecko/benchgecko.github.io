@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Cadence &amp; Budget - Gecko Tests Methodology</title>
+    <meta name="description" content="Daily sentinel runs, weekly full runs, monthly reports. Budget management for testing AI models at scale: $3/day cap, $100/month cap, batch API optimization.">
+    <link rel="canonical" href="https://benchgecko.github.io/gecko-tests/run-cadence.html">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-brand"><a href="https://benchgecko.ai">Bench<span>Gecko</span></a> / <a href="./">Labs</a></div>
+            <ul class="nav-links">
+                <li><a href="./">Overview</a></li>
+                <li><a href="test-families.html">Test Families</a></li>
+                <li><a href="fairness-protocol.html">Fairness</a></li>
+                <li><a href="scoring.html">Scoring</a></li>
+                <li><a href="censorship-index.html">Censorship</a></li>
+                <li><a href="prompt-schema.html">Schema</a></li>
+                <li><a href="run-cadence.html" class="active">Cadence</a></li>
+                <li><a href="limitations.html">Limitations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="https://benchgecko.ai">BenchGecko</a> <span>/</span>
+        <a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a> <span>/</span>
+        <a href="./">Methodology</a> <span>/</span>
+        Run Cadence
+    </div>
+
+    <div class="container">
+        <h1>Run Cadence <span class="teal">&amp; Budget</span></h1>
+        <p class="subtitle">How Gecko Tests balance comprehensive coverage with cost efficiency. Testing every major <a href="https://benchgecko.ai/models">AI model</a> daily for under $5.</p>
+
+        <h2>Three-Tier Cadence</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Daily Sentinel <span class="badge badge-teal">Tier 1</span></h3>
+                <p><strong>80-100 prompts per model</strong></p>
+                <p><strong>12 models</strong></p>
+                <p>Core sentinel prompts from each test family. Designed to detect drift, outages, and major behavioral changes within 24 hours. Results published same-day on <a href="https://benchgecko.ai/gecko-tests">BenchGecko Gecko Tests</a>.</p>
+            </div>
+            <div class="card">
+                <h3>Weekly Full Run <span class="badge badge-purple">Tier 2</span></h3>
+                <p><strong>250-350 prompts per model</strong></p>
+                <p><strong>14-16 models</strong></p>
+                <p>Complete test battery including IQ prompts, slur consistency, and extended symmetry pairs. Includes 2 premium models not tested daily. Generates weekly trend charts.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Monthly Report <span class="badge badge-amber">Tier 3</span></h3>
+            <p><strong>500+ prompts per model</strong></p>
+            <p><strong>All tracked models</strong></p>
+            <p>Full evaluation with expanded prompt bank, cross-model comparison, drift analysis, and narrative report. Published as a standalone report on <a href="https://benchgecko.ai/gecko-tests">BenchGecko</a> and distributed to researchers, journalists, and AI companies.</p>
+        </div>
+
+        <h2>Model Selection</h2>
+        <p>Models are selected from the thousands tracked on <a href="https://benchgecko.ai/models">BenchGecko's model database</a> based on:</p>
+
+        <table>
+            <thead>
+                <tr><th>Tier</th><th>Models</th><th>Selection Criteria</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Daily (12)</td><td>GPT-4o, Claude Sonnet, Gemini Pro, Llama, Mistral, Command R+, Grok, DeepSeek, Qwen, Yi, Phi, Gemma</td><td>Market share, developer adoption (<a href="https://benchgecko.ai/mindshare">Mindshare data</a>), provider diversity</td></tr>
+                <tr><td>Weekly (+2)</td><td>GPT-4.5, Claude Opus</td><td>Premium models with lower daily ROI but high interest</td></tr>
+                <tr><td>Monthly (all)</td><td>Every model with API access</td><td>Comprehensive coverage</td></tr>
+            </tbody>
+        </table>
+
+        <p>Model availability and pricing are cross-referenced with <a href="https://benchgecko.ai/pricing">BenchGecko's pricing comparison tool</a> to route each request to the cheapest <a href="https://benchgecko.ai/providers">provider</a>.</p>
+
+        <h2>Budget Management</h2>
+
+        <div class="card">
+            <h3>Cost Structure</h3>
+            <table>
+                <thead>
+                    <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Input tokens per prompt</td><td>~300</td><td>Short, focused prompts</td></tr>
+                    <tr><td>Output tokens per response</td><td>120 max</td><td>Forced short output. No essays, no chain-of-thought.</td></tr>
+                    <tr><td>Temperature</td><td>0 or 0.2</td><td>Reproducibility</td></tr>
+                    <tr><td>Batch API</td><td>Where available</td><td>50% cost reduction on OpenAI, Anthropic</td></tr>
+                    <tr><td>Daily budget cap</td><td>$3</td><td>Hard stop. No run exceeds this.</td></tr>
+                    <tr><td>Monthly budget cap</td><td>$100</td><td>Including weekly and monthly report runs.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Cost Estimation</h3>
+        <pre><code>Daily:  12 models x 85 prompts x (300 + 120) tokens = ~4.3M tokens
+        At avg $0.50/M input + $1.50/M output = ~$1.80/day
+
+Weekly: 16 models x 300 prompts = ~20M tokens = ~$8/week (additional)
+
+Monthly: ~$60-80 base + $20-40 for expanded monthly report = $80-120/month</code></pre>
+
+        <h3>Cost Optimization Tactics</h3>
+        <ul>
+            <li><strong>Short outputs:</strong> 120 tokens max eliminates verbose responses that drive cost</li>
+            <li><strong>Batch APIs:</strong> OpenAI Batch API (50% off), Anthropic Message Batches</li>
+            <li><strong>Smart routing:</strong> Use <a href="https://benchgecko.ai/pricing">BenchGecko pricing data</a> to find cheapest provider for each model</li>
+            <li><strong>Cheap judges:</strong> Scoring uses Flash-Lite/Haiku/mini at ~$0.001/call, not frontier models</li>
+            <li><strong>Not testing every model daily:</strong> Premium models weekly, full roster monthly</li>
+            <li><strong>Sentinel design:</strong> Daily prompts chosen for maximum drift detection per dollar</li>
+        </ul>
+
+        <h2>Shadow Mode</h2>
+        <p>Before any test goes live publicly, it runs in shadow mode:</p>
+        <ol>
+            <li><strong>Phase 1:</strong> 2 models only, manual review of all classifications</li>
+            <li><strong>Phase 2:</strong> 4 models, automated scoring with manual spot-checks</li>
+            <li><strong>Phase 3:</strong> Full model roster, automated scoring, public results</li>
+        </ol>
+        <p>Shadow mode catches prompt design issues, judge model failures, and scoring edge cases before they affect published data.</p>
+
+        <h2>Scheduling</h2>
+        <table>
+            <thead>
+                <tr><th>Run</th><th>Time (UTC)</th><th>Duration</th><th>When</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Daily sentinel</td><td>06:00</td><td>~30 min</td><td>Every day</td></tr>
+                <tr><td>Weekly full</td><td>02:00 Sunday</td><td>~2 hours</td><td>Every Sunday</td></tr>
+                <tr><td>Monthly report</td><td>02:00 1st</td><td>~4 hours</td><td>First of month</td></tr>
+            </tbody>
+        </table>
+
+        <p>Results are processed and published to <a href="https://benchgecko.ai/gecko-tests">BenchGecko Gecko Tests</a> within 1 hour of run completion. API data updates immediately. Charts and trend lines update on page load.</p>
+
+        <h2>Infrastructure</h2>
+        <p>Gecko Tests run on lightweight infrastructure alongside <a href="https://benchgecko.ai">BenchGecko's</a> existing data pipeline:</p>
+        <ul>
+            <li>Prompt bank stored in versioned JSON files</li>
+            <li>Run orchestrator sends batch API calls to each <a href="https://benchgecko.ai/providers">provider</a></li>
+            <li>Results stored in database with full provenance (model, provider, timestamp, raw response)</li>
+            <li>Scoring pipeline runs judge models on raw responses</li>
+            <li>Dashboard updates from scored results</li>
+        </ul>
+
+        <div class="page-nav">
+            <a href="prompt-schema.html">
+                <span>Previous</span>
+                Prompt Schema
+            </a>
+            <a href="limitations.html" class="next">
+                <span>Next</span>
+                Limitations
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://benchgecko.ai">BenchGecko</a>
+            <a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a>
+            <a href="https://benchgecko.ai/models">Models</a>
+            <a href="https://benchgecko.ai/pricing">Pricing</a>
+            <a href="https://benchgecko.ai/api-docs">API</a>
+            <a href="https://github.com/BenchGecko">GitHub</a>
+        </div>
+        <p>BenchGecko -- The Data Layer of the AI Economy</p>
+    </footer>
+</body>
+</html>

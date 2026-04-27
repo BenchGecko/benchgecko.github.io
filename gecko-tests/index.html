@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gecko Tests Methodology - BenchGecko Labs</title>
+    <meta name="description" content="Technical methodology for Gecko Tests, BenchGecko's daily AI behavior testing framework. Measuring censorship, bias, political orientation, and moral reasoning across every major AI model.">
+    <link rel="canonical" href="https://benchgecko.github.io/gecko-tests/">
+    <meta property="og:title" content="Gecko Tests Methodology - BenchGecko Labs">
+    <meta property="og:description" content="Daily AI behavior testing: censorship, bias, political orientation, and moral reasoning. Same prompts. Same models. Raw answers.">
+    <meta property="og:url" content="https://benchgecko.github.io/gecko-tests/">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-brand"><a href="https://benchgecko.ai">Bench<span>Gecko</span></a> / <a href="./">Labs</a></div>
+            <ul class="nav-links">
+                <li><a href="./" class="active">Overview</a></li>
+                <li><a href="test-families.html">Test Families</a></li>
+                <li><a href="fairness-protocol.html">Fairness</a></li>
+                <li><a href="scoring.html">Scoring</a></li>
+                <li><a href="censorship-index.html">Censorship</a></li>
+                <li><a href="prompt-schema.html">Schema</a></li>
+                <li><a href="run-cadence.html">Cadence</a></li>
+                <li><a href="limitations.html">Limitations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="https://benchgecko.ai">BenchGecko</a> <span>/</span>
+        <a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a> <span>/</span>
+        Methodology
+    </div>
+
+    <div class="container">
+        <h1>Gecko Tests <span class="teal">Methodology</span></h1>
+        <p class="subtitle">Technical documentation for BenchGecko's daily AI behavior testing framework. Version 0.4</p>
+
+        <div class="callout">
+            <div class="callout-title">What are Gecko Tests?</div>
+            <p>Gecko Tests send identical prompts to every major AI model and measure behavioral patterns that existing benchmarks ignore: censorship, bias, political drift, moral reasoning, and real-life helpfulness. Built by <a href="https://benchgecko.ai">BenchGecko</a>, the data layer of the AI economy.</p>
+        </div>
+
+        <div class="toc">
+            <h3>Methodology Documentation</h3>
+            <ul>
+                <li><a href="test-families.html">Test Families</a> -- 18 evaluation families across 7 core tests</li>
+                <li><a href="fairness-protocol.html">Fairness Protocol</a> -- 5 rules ensuring balanced, rigorous evaluation</li>
+                <li><a href="expected-behavior.html">Expected Behavior System</a> -- How we define correct model behavior</li>
+                <li><a href="scoring.html">Scoring Framework</a> -- Subscores, indices, and aggregation methods</li>
+                <li><a href="censorship-index.html">Censorship Index</a> -- 7-subscore framework for refusal analysis</li>
+                <li><a href="prompt-schema.html">Prompt Schema</a> -- Technical format for test prompts and metadata</li>
+                <li><a href="run-cadence.html">Run Cadence &amp; Budget</a> -- Daily, weekly, and monthly testing schedules</li>
+                <li><a href="limitations.html">Limitations &amp; Ethics</a> -- Known constraints and ethical commitments</li>
+            </ul>
+        </div>
+
+        <h2>Why Behavior Testing Matters</h2>
+        <p>Most AI benchmarks measure what models <em>can</em> do. MMLU tests knowledge. HumanEval tests coding. MATH tests arithmetic. These are capability benchmarks. You can compare thousands of them on <a href="https://benchgecko.ai/models">BenchGecko's model rankings</a>.</p>
+        <p>But nobody systematically tests what models <em>will</em> do when humans ask difficult questions. A model that scores 90% on MMLU but refuses to factually discuss a historical event has a behavioral problem that no capability benchmark captures.</p>
+        <p>Gecko Tests fill this gap. Same prompts, same models, raw answers, public data.</p>
+
+        <h2>The 7 Core Tests</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Censorship Index <span class="badge badge-teal">Daily</span></h3>
+                <p>Which models refuse legitimate questions? 7 subscores measuring refusal rate, over-refusal, safety accuracy, unsafe compliance, moralizing, directness, and asymmetry.</p>
+                <p><a href="censorship-index.html">Full methodology</a></p>
+            </div>
+            <div class="card">
+                <h3>Race Bias Index <span class="badge badge-teal">Daily</span></h3>
+                <p>Do models apply different standards when only the race or ethnicity variable changes? Mirror-pair testing across hiring, policing, housing, education, and healthcare scenarios.</p>
+                <p><a href="test-families.html#symmetry">Test family details</a></p>
+            </div>
+            <div class="card">
+                <h3>AI Political Compass <span class="badge badge-teal">Daily</span></h3>
+                <p>Where does each model sit on economic and social axes? Policy questions scored on a 2D compass. Not ideology detection -- orientation measurement.</p>
+                <p><a href="test-families.html#worldview">Test family details</a></p>
+            </div>
+            <div class="card">
+                <h3>AI IQ Test <span class="badge badge-purple">Weekly</span></h3>
+                <p>Fluid reasoning, pattern recognition, spatial logic. Not knowledge retrieval. Prompt bank rotated weekly to prevent contamination.</p>
+                <p><a href="test-families.html#reasoning">Test family details</a></p>
+            </div>
+            <div class="card">
+                <h3>Would AI Let People Die? <span class="badge badge-teal">Daily</span></h3>
+                <p>Trolley problems, triage scenarios, rule-vs-survival conflicts. Scored on engagement depth, not moral position.</p>
+                <p><a href="test-families.html#moral">Test family details</a></p>
+            </div>
+            <div class="card">
+                <h3>Slur Double Standard Test <span class="badge badge-purple">Weekly</span></h3>
+                <p>Do models treat slurs consistently across groups? Same question structure, different target groups. Measuring consistency, not permissiveness.</p>
+                <p><a href="test-families.html#consistency">Test family details</a></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Model Drift Index <span class="badge badge-amber">Computed</span></h3>
+            <p>Derived from all other tests. Tracks when a model's censorship threshold shifts, when its political orientation moves, or when a provider silently updates behavior. Week-over-week and month-over-month deltas. Monitored alongside model updates on <a href="https://benchgecko.ai/models">BenchGecko's model tracker</a>.</p>
+        </div>
+
+        <h2>Design Principles</h2>
+        <ul>
+            <li><strong>Neutral tone.</strong> We publish data, not editorials. "Here are the answers" not "this model is evil."</li>
+            <li><strong>Expected behavior labels.</strong> Every prompt has a pre-defined expected behavior. A model refusing dangerous content gets credit. A model refusing factual history gets flagged. See the <a href="expected-behavior.html">expected behavior system</a>.</li>
+            <li><strong>Fairness protocol.</strong> If we test hard questions about one country, we test hard questions about every relevant country. If we test one ideology, we test the opposite. Five formal rules. See the <a href="fairness-protocol.html">fairness protocol</a>.</li>
+            <li><strong>Reproducibility.</strong> Temperature 0 or 0.2. Short outputs (120 tokens max). Fixed prompt bank. Same parameters across all <a href="https://benchgecko.ai/providers">providers</a>.</li>
+            <li><strong>Transparency.</strong> Methodology published. Prompt bank versioned. Raw answers archived. Everything except active IQ prompts is public.</li>
+        </ul>
+
+        <h2>How It Fits Into BenchGecko</h2>
+        <p><a href="https://benchgecko.ai">BenchGecko</a> already tracks the entire AI economy:</p>
+        <ul>
+            <li><a href="https://benchgecko.ai/models">Model rankings</a> across thousands of AI models and 128 evaluation suites</li>
+            <li><a href="https://benchgecko.ai/pricing">Cross-provider pricing</a> to find the cheapest inference for any model</li>
+            <li><a href="https://benchgecko.ai/economy">AI Economy Dashboard</a> tracking valuations, funding, and the AI Bubble Index</li>
+            <li><a href="https://benchgecko.ai/compute">Compute Supply Chain Hub</a> monitoring foundries, chips, memory, systems, and energy</li>
+            <li><a href="https://benchgecko.ai/mindshare">Mindshare Arena</a> measuring which models own the developer conversation</li>
+            <li><a href="https://benchgecko.ai/agents">Agent tracker</a> scoring 165+ AI agents on capability</li>
+        </ul>
+        <p>Gecko Tests add the <strong>behavioral layer</strong> that no one else measures systematically. Capability benchmarks tell you which model is smartest. Gecko Tests tell you which model is most honest, most helpful, and most consistent.</p>
+
+        <h2>Data Access</h2>
+        <p>All Gecko Tests data will be available through:</p>
+        <ul>
+            <li><strong>Live dashboards</strong> at <a href="https://benchgecko.ai/gecko-tests">benchgecko.ai/gecko-tests</a> with embeddable charts</li>
+            <li><strong>Free API</strong> at <a href="https://benchgecko.ai/api-docs">benchgecko.ai/api-docs</a> for programmatic access</li>
+            <li><strong>Monthly reports</strong> with full data exports and trend analysis</li>
+            <li><strong>Raw answer archives</strong> for independent verification</li>
+        </ul>
+
+        <div class="page-nav">
+            <a href="../">
+                <span>Previous</span>
+                BenchGecko Home
+            </a>
+            <a href="test-families.html" class="next">
+                <span>Next</span>
+                Test Families
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://benchgecko.ai">BenchGecko</a>
+            <a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a>
+            <a href="https://benchgecko.ai/models">Models</a>
+            <a href="https://benchgecko.ai/pricing">Pricing</a>
+            <a href="https://benchgecko.ai/api-docs">API</a>
+            <a href="https://github.com/BenchGecko">GitHub</a>
+        </div>
+        <p>BenchGecko -- The Data Layer of the AI Economy</p>
+    </footer>
+</body>
+</html>
