@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BenchGecko Ecosystem · Official Profiles, Documentation, and Resources</title>
+    <meta name="description" content="All official BenchGecko profiles, documentation, packages, and community resources in one place. The AI Economy, Tracked.">
+    <meta name="keywords" content="BenchGecko, AI benchmarks, LLM comparison, AI economy, Gecko Tests, AI model rankings, MCP servers">
+    <link rel="canonical" href="https://benchgecko.github.io/ecosystem">
+    <meta property="og:title" content="BenchGecko Ecosystem · Official Profiles and Resources">
+    <meta property="og:description" content="All official BenchGecko profiles, documentation, packages, and community resources.">
+    <meta property="og:url" content="https://benchgecko.github.io/ecosystem">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #16161f;
+            --bg-card-hover: #1c1c28;
+            --border: #2a2a3a;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9898a8;
+            --text-muted: #6a6a7a;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --teal: #00D5FF;
+            --teal-glow: rgba(0, 213, 255, 0.15);
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --pink: #FF0050;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg-primary); color: var(--text-primary);
+            line-height: 1.7; -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--accent-light); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #a5b4fc; }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(10, 10, 15, 0.92); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border); padding: 0 2rem;
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; height: 60px;
+        }
+        .nav-brand { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
+        .nav-brand a { color: var(--text-primary); }
+        .nav-brand a:hover { color: var(--teal); }
+        .nav-brand span { color: var(--teal); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a.active { color: var(--teal); }
+        .container { max-width: 900px; margin: 0 auto; padding: 80px 2rem 4rem; }
+        h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.03em; line-height: 1.2; }
+        h1 .teal { color: var(--teal); }
+        .subtitle { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 2.5rem; }
+        h2 {
+            font-size: 1.25rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem;
+            letter-spacing: -0.02em; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+        }
+        .section-grid {
+            display: grid; grid-template-columns: 1fr; gap: 0.5rem;
+        }
+        .link-row {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 0.75rem 1rem; border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .link-row:hover { background: var(--bg-card-hover); }
+        .link-row .platform {
+            min-width: 160px; font-weight: 600; font-size: 0.9rem; color: var(--text-primary);
+        }
+        .link-row .dr {
+            min-width: 50px; font-size: 0.78rem; font-weight: 600;
+            color: var(--green); text-align: center;
+        }
+        .link-row .url {
+            flex: 1; font-size: 0.85rem; color: var(--accent-light);
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .link-row .tag {
+            font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .tag-dofollow { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+        .tag-profile { background: rgba(99, 102, 241, 0.15); color: var(--accent-light); }
+        .tag-docs { background: rgba(0, 213, 255, 0.15); color: var(--teal); }
+        .tag-package { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .tag-content { background: rgba(255, 0, 80, 0.15); color: var(--pink); }
+        .stats-bar {
+            display: flex; gap: 2rem; margin: 1.5rem 0 2rem;
+            padding: 1rem 1.5rem; background: var(--bg-card); border-radius: 10px;
+            border: 1px solid var(--border); flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--teal); }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        footer {
+            max-width: 900px; margin: 0 auto; padding: 2rem;
+            border-top: 1px solid var(--border); color: var(--text-muted);
+            font-size: 0.8rem; text-align: center;
+        }
+        @media (max-width: 640px) {
+            .link-row { flex-wrap: wrap; gap: 0.5rem; }
+            .link-row .platform { min-width: 120px; }
+            .link-row .dr { min-width: auto; }
+            .stats-bar { gap: 1rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-brand"><a href="https://benchgecko.ai">Bench<span>Gecko</span></a></div>
+            <ul class="nav-links">
+                <li><a href="https://benchgecko.ai/models">Models</a></li>
+                <li><a href="https://benchgecko.ai/gecko-tests">Gecko Tests</a></li>
+                <li><a href="https://benchgecko.ai/economy">Economy</a></li>
+                <li><a href="https://benchgecko.ai/compute">Compute</a></li>
+                <li><a href="https://benchgecko.ai/api-docs">API</a></li>
+                <li><a href="https://benchgecko.github.io/ecosystem" class="active">Ecosystem</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>BenchGecko <span class="teal">Ecosystem</span></h1>
+        <p class="subtitle">All official profiles, documentation, packages, and community resources in one place.</p>
+
+        <div class="stats-bar">
+            <div class="stat"><div class="stat-value">30+</div><div class="stat-label">Platforms</div></div>
+            <div class="stat"><div class="stat-value">7</div><div class="stat-label">Doc Pages</div></div>
+            <div class="stat"><div class="stat-value">3</div><div class="stat-label">MCP Servers</div></div>
+            <div class="stat"><div class="stat-value">2</div><div class="stat-label">Docker Images</div></div>
+            <div class="stat"><div class="stat-value">6</div><div class="stat-label">Languages</div></div>
+        </div>
+
+        <!-- PLATFORM -->
+        <h2>Platform</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">BenchGecko</div>
+                <div class="url"><a href="https://benchgecko.ai">benchgecko.ai</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Models</div>
+                <div class="url"><a href="https://benchgecko.ai/models">benchgecko.ai/models</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Gecko Tests</div>
+                <div class="url"><a href="https://benchgecko.ai/gecko-tests">benchgecko.ai/gecko-tests</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Economy</div>
+                <div class="url"><a href="https://benchgecko.ai/economy">benchgecko.ai/economy</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Compute Hub</div>
+                <div class="url"><a href="https://benchgecko.ai/compute">benchgecko.ai/compute</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Mindshare</div>
+                <div class="url"><a href="https://benchgecko.ai/mindshare">benchgecko.ai/mindshare</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Agents</div>
+                <div class="url"><a href="https://benchgecko.ai/agents">benchgecko.ai/agents</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">API Documentation</div>
+                <div class="url"><a href="https://benchgecko.ai/api-docs">benchgecko.ai/api-docs</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Brand Assets</div>
+                <div class="url"><a href="https://benchgecko.ai/brand">benchgecko.ai/brand</a></div>
+            </div>
+        </div>
+
+        <!-- DOCUMENTATION -->
+        <h2>Documentation</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">GitBook Docs</div>
+                <span class="tag tag-docs">DOCS</span>
+                <div class="url"><a href="https://benchgecko.gitbook.io/benchgecko-docs">benchgecko.gitbook.io/benchgecko-docs</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Methodology</div>
+                <span class="tag tag-docs">DOCS</span>
+                <div class="url"><a href="https://benchgecko.github.io/gecko-tests/">benchgecko.github.io/gecko-tests</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Fairness Protocol</div>
+                <span class="tag tag-docs">DOCS</span>
+                <div class="url"><a href="https://benchgecko.github.io/gecko-tests/fairness-protocol">benchgecko.github.io/gecko-tests/fairness-protocol</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Censorship Index</div>
+                <span class="tag tag-docs">DOCS</span>
+                <div class="url"><a href="https://benchgecko.github.io/gecko-tests/censorship-index">benchgecko.github.io/gecko-tests/censorship-index</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Scoring System</div>
+                <span class="tag tag-docs">DOCS</span>
+                <div class="url"><a href="https://benchgecko.github.io/gecko-tests/scoring">benchgecko.github.io/gecko-tests/scoring</a></div>
+            </div>
+        </div>
+
+        <!-- GITHUB -->
+        <h2>GitHub</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">BenchGecko Org</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://github.com/BenchGecko">github.com/BenchGecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Awesome LLM Benchmarks</div>
+                <span class="tag tag-package">REPO</span>
+                <div class="url"><a href="https://github.com/BenchGecko/awesome-llm-benchmarks">github.com/BenchGecko/awesome-llm-benchmarks</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">LLM Pricing Data</div>
+                <span class="tag tag-package">REPO</span>
+                <div class="url"><a href="https://github.com/BenchGecko/llm-pricing">github.com/BenchGecko/llm-pricing</a></div>
+            </div>
+        </div>
+
+        <!-- MCP SERVERS -->
+        <h2>MCP Servers</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">BenchGecko MCP</div>
+                <span class="tag tag-package">MCP</span>
+                <div class="url"><a href="https://mcp.so/server/benchgecko-mcp-server">mcp.so/server/benchgecko-mcp-server</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Gecko Tests MCP</div>
+                <span class="tag tag-package">MCP</span>
+                <div class="url"><a href="https://github.com/BenchGecko/gecko-tests-mcp-server">github.com/BenchGecko/gecko-tests-mcp-server</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">AI Economy MCP</div>
+                <span class="tag tag-package">MCP</span>
+                <div class="url"><a href="https://github.com/BenchGecko/ai-economy-mcp-server">github.com/BenchGecko/ai-economy-mcp-server</a></div>
+            </div>
+        </div>
+
+        <!-- DOCKER -->
+        <h2>Docker</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">API Client</div>
+                <span class="tag tag-package">DOCKER</span>
+                <div class="url"><a href="https://hub.docker.com/r/benchgecko/benchgecko-api-client">hub.docker.com/r/benchgecko/benchgecko-api-client</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Gecko Tests Runner</div>
+                <span class="tag tag-package">DOCKER</span>
+                <div class="url"><a href="https://hub.docker.com/r/benchgecko/gecko-tests-runner">hub.docker.com/r/benchgecko/gecko-tests-runner</a></div>
+            </div>
+        </div>
+
+        <!-- DEVELOPER PROFILES -->
+        <h2>Developer Profiles</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">Stack Overflow</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://stackoverflow.com/users/29aborz/benchgecko">stackoverflow.com/users/benchgecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Dev.to</div>
+                <span class="tag tag-content">CONTENT</span>
+                <div class="url"><a href="https://dev.to/benchgecko">dev.to/benchgecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Hashnode</div>
+                <span class="tag tag-content">CONTENT</span>
+                <div class="url"><a href="https://benchgecko.hashnode.dev">benchgecko.hashnode.dev</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">DevPost</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://devpost.com/benchgecko">devpost.com/benchgecko</a></div>
+            </div>
+        </div>
+
+        <!-- SOCIAL -->
+        <h2>Social</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">X (Twitter)</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://x.com/BenchGecko">x.com/BenchGecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Bluesky</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://bsky.app/profile/benchgecko.bsky.social">benchgecko.bsky.social</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Mastodon</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://mastodon.social/@benchgecko">mastodon.social/@benchgecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Behance</div>
+                <span class="tag tag-profile">PROFILE</span>
+                <div class="url"><a href="https://www.behance.net/BenchGecko">behance.net/BenchGecko</a></div>
+            </div>
+        </div>
+
+        <!-- CONTENT & COMMUNITY -->
+        <h2>Content</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">Substack</div>
+                <span class="tag tag-content">NEWSLETTER</span>
+                <div class="url"><a href="https://benchgecko.substack.com">benchgecko.substack.com</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">LessWrong</div>
+                <span class="tag tag-content">RESEARCH</span>
+                <div class="url"><a href="https://www.lesswrong.com/users/benchgecko">lesswrong.com/users/benchgecko</a></div>
+            </div>
+        </div>
+
+        <!-- DIRECTORIES -->
+        <h2>Directories</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">Carrd</div>
+                <span class="tag tag-profile">LANDING</span>
+                <div class="url"><a href="https://benchgecko.carrd.co">benchgecko.carrd.co</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Linktree</div>
+                <span class="tag tag-profile">LINKS</span>
+                <div class="url"><a href="https://linktr.ee/BenchGecko">linktr.ee/BenchGecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Startupinspire</div>
+                <span class="tag tag-profile">DIRECTORY</span>
+                <div class="url"><a href="https://www.startupinspire.com/s/benchgecko">startupinspire.com/s/benchgecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Uneed</div>
+                <span class="tag tag-profile">DIRECTORY</span>
+                <div class="url"><a href="https://www.uneed.best/tool/benchgecko">uneed.best/tool/benchgecko</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">Vercel</div>
+                <span class="tag tag-profile">MIRROR</span>
+                <div class="url"><a href="https://benchgecko.vercel.app">benchgecko.vercel.app</a></div>
+            </div>
+        </div>
+
+        <!-- DEPLOYMENT PAGES -->
+        <h2>Deployed Pages</h2>
+        <div class="section-grid">
+            <div class="link-row">
+                <div class="platform">GitHub Pages</div>
+                <span class="tag tag-docs">9 PAGES</span>
+                <div class="url"><a href="https://benchgecko.github.io">benchgecko.github.io</a></div>
+            </div>
+            <div class="link-row">
+                <div class="platform">GitBook API Docs</div>
+                <span class="tag tag-docs">7 PAGES</span>
+                <div class="url"><a href="https://benchgecko.gitbook.io/benchgecko-docs">benchgecko.gitbook.io/benchgecko-docs</a></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        BenchGecko · The AI Economy, Tracked · <a href="https://benchgecko.ai">benchgecko.ai</a>
+    </footer>
+</body>
+</html>
